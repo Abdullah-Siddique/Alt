@@ -5,10 +5,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            background-image: url('https://cdn.leonardo.ai/users/12adf5be-8e70-4be7-82b2-f6a279f24f70/generations/46d59310-8310-4ef0-bac8-8107d6b85f86/Default_Black_and_brown_background_2.jpg');
             background-size: cover;
             background-position: center;
+            background-color: rgb(219, 180, 130);
             margin: 0;
             padding: 0;
             display: flex;
@@ -16,29 +15,76 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            color: #333;
+            color: black;
+            overflow: hidden;
         }
         h1 {
             font-size: 2.8em;
             margin-bottom: 25px;
+            color: #e91e63;
+            position: relative;
+            padding-left: 50px;
+        }
+        h1::before {
+            content: '❤️';
+            font-size: 1.5em;
+            position: absolute;
+            left: 0;
+            top: 10px;
+            animation: bounce 2s infinite;
         }
         div.result-box {
-            background-color: #fff;
-            background-image: url('https://i.ibb.co/BryYmTY/Background.png') ;
+            background-color: #60b6b92a;
             padding: 70px;
             border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             max-width: 800px;
             width: 90%;
             text-align: center;
+            height: 700px;
+            position: relative;
+            animation: fadeIn 2s ease-out;
         }
+        .flower {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .cure-sign {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            color: #f17107;
+            animation: rotate 5s linear infinite;
+        }
+        .cure-sign::before,
+        .cure-sign::after {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 30px;
+            background-color: #f17107;
+        }
+        .cure-sign::before {
+            transform: rotate(90deg);
+        }
+
         p {
-            font-size: 1.4em;
+            font-size: 1.6em;
             margin: 20px 0;
         }
         p strong {
-            color: #5cb85c;
+            color: black;
             font-weight: bold;
+            animation: slideIn 1s ease-out;
         }
         .visit-again {
             font-size: 1.8em;
@@ -56,15 +102,17 @@
         }
         .button {
             display: inline-block;
-            padding: 18px 35px;
+            padding: 20px 40px;
             margin-top: 30px;
-            font-size: 1.4em;
+            font-size: 1.6em;
             color: #fff;
             background-color: #5cb85c;
             border: none;
             border-radius: 10px;
             cursor: pointer;
             text-decoration: none;
+            transition: background-color 0.3s ease;
+            animation: fadeInUp 1s ease-out;
         }
         .button:hover {
             background-color: #4cae4c;
@@ -79,16 +127,47 @@
             from, to { border-color: transparent; }
             50% { border-color: #fff; }
         }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
     <div class="result-box">
         <h1>Your Health Checkup Result</h1>
+        <div class="flower rose" style="top: 50%; left: -60px; transform: translateY(-50%);"></div>
+        <div class="flower flower-2" style="top: 50%; right: -60px; transform: translateY(-50%);"></div>
         <p>Your BMI: <strong id="bmiValue"></strong></p>
         <p>Your BMR: <strong id="bmrValue"></strong></p>
         <p>Your Calorie Demand: <strong id="calorieDemandValue"></strong></p>
         <p>Health Status: <strong id="healthStatusValue"></strong></p>
         <a href="index.html" class="button">Go Back (Test Again)</a>
+        <div class="cure-sign" style="bottom: -30px; right: -30px;">+</div>
+        <div class="cure-sign" style="bottom: -30px; left: -30px;">+</div>
     </div>
     <div class="visit-again">Visit Again</div>
     
