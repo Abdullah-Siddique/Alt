@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkup Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        div {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        p strong {
+            color: #5cb85c;
+        }
+        .visit-again {
+            font-size: 24px;
+            color: #666;
+            margin-top: 20px;
+            animation: typing 3s steps(12) forwards, blink-caret 0.75s step-end infinite;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #666;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #5cb85c;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #4cae4c;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 12ch; } 
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #666; }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Your Health Checkup Result</h1>
+        <p>Your BMI: <strong id="bmiValue"></strong></p>
+        <p>Your BMR: <strong id="bmrValue"></strong></p>
+        <p>Your Calorie Demand: <strong id="calorieDemandValue"></strong></p>
+        <p>Health Status: <strong id="healthStatusValue"></strong></p>
+        <a href="checkup.html" class="button">Go Back (Test Again)</a>
+    </div>
+    <div class="visit-again">Visit Again</div>
+    
+    <script>
+        document.getElementById('bmiValue').textContent = localStorage.getItem('bmi');
+        document.getElementById('bmrValue').textContent = localStorage.getItem('bmr');
+        document.getElementById('calorieDemandValue').textContent = localStorage.getItem('calorieDemand');
+        document.getElementById('healthStatusValue').textContent = localStorage.getItem('healthStatus');
+    </script>
+</body>
+</html>
+
+

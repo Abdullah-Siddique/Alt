@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Checkup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        h1, p {
+            color: #333;
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            color: #666;
+            background-color: #f1f1f1;
+            padding: 10px 0;
+            margin-top: auto;
+            width: 100%;
+        }
+        footer a {
+            color: #5cb85c;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            margin: auto;
+            font-size: 1.2em;
+        }
+        form p {
+            margin-bottom: 20px;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #5cb85c;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        select {
+            width: 60%; 
+            padding: 7px;
+            font-size: 0.9em; 
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 17px;    
+        }
+        select option {
+            font-size: 0.9em; 
+        }
+        #tips {
+            text-align: center;
+            font-size: 2.5em;  
+            color: #444;
+            margin: 60px 0 20px 0;  
+            height: 60px; 
+        }
+        @media (max-width: 768px) {
+            form {
+                padding: 25px;
+                font-size: 1.1em;
+            }
+            button {
+                font-size: 16px;
+            }
+            #tips {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Health Checkup</h1>
+        <p>Please enter your personal information to calculate your BMI, BMR, and Calorie Demand.</p>
+        <form id="healthForm">
+            <p>Height (cm): <input type="number" id="height" required></p>
+            <p>Weight (kg): <input type="number" id="weight" required></p>
+            <p>Age: <input type="number" id="age" required></p>
+            <p>Gender: 
+                <select id="gender" required>
+                    <option value="" disabled selected><strong>---------</strong></option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </p>
+            <p>Activity Level: 
+                <select id="activity_level" required>
+                    <option value="little">Minimal or no exercise</option>
+                    <option value="light">Occasional exercise (Light exercise 2-3 days/week)</option>
+                    <option value="moderate">Moderate exercise (Hard exercise 3-5 days/week)</option>
+                    <option value="active">Very active (Very hard exercise 6-7 days/week)</option>
+                    <option value="extra">Extra active (Very active & physical job every day)</option>
+                </select>
+            </p>
+            <button type="button" onclick="calculateHealth()">Calculate</button>
+        </form>
+        <div id="tips">
+            <p id="current-tip"></p>
+        </div>
+    </div>
+    <footer>
+        <h4>Authority: Abdullah Siddique</h4>
+        <h4>Contact: siddiqueabdullah581@gmail.com<br>
+        Github: <a href="https://github.com/Abdullah-Siddique">Abdullah Siddique</a></h4>
+        <p>© 2024 Health Checkup. All rights reserved.</p>
+    </footer>
+    <script>
+        const tips = [
+        "Drink plenty of water.",
+    "Get at least 8 hours of sleep.",
+    "Eat more fruits and vegetables.",
+    "Exercise regularly.",
+    "Avoid sugary drinks.",
+    "Take breaks from screens.",
+    "Practice deep breathing.",
+    "Maintain good posture.",
+    "Stretch your body daily.",
+    "Limit processed foods.",
+    "Eat balanced meals.",
+    "Practice mindfulness.",
+    "Stay positive and reduce stress.",
+    "Limit alcohol consumption.",
+    "Keep a regular sleep schedule.",
+    "Spend time outdoors.",
+    "Laugh often and enjoy life.",
+    "Avoid overeating.",
+    "Stay connected with loved ones.",
+    "Keep your environment clean.",
+    "Stay hydrated by drinking water regularly.",
+    "Eat a variety of fruits and vegetables daily.",
+    "Avoid excessive salt in your diet.",
+    "Limit your intake of saturated fats.",
+    "Choose whole grains over refined grains.",
+    "Incorporate lean proteins into your meals.",
+    "Practice portion control to avoid overeating.",
+    "Avoid eating late at night.",
+    "Make time for regular physical activity.",
+    "Include strength training in your workout routine.",
+    "Try to get at least 30 minutes of exercise each day.",
+    "Use stairs instead of elevators when possible.",
+    "Practice mindfulness or meditation to reduce stress.",
+    "Get regular health check-ups.",
+    "Maintain a balanced and varied diet.",
+    "Avoid smoking and limit alcohol consumption.",
+    "Prioritize mental health and seek support if needed.",
+    "Keep your living environment clean and organized.",
+    "Practice good hygiene, including regular hand washing.",
+    "Limit your intake of sugary foods and beverages.",
+    "Incorporate healthy fats, such as avocados and nuts, into your diet.",
+    "Stay active by engaging in hobbies and activities you enjoy.",
+    "Ensure you get enough fiber in your diet to support digestion.",
+    "Avoid prolonged periods of sitting; take breaks to move around.",
+    "Get enough sleep each night to support overall health.",
+    "Manage your stress through relaxation techniques like yoga.",
+    "Eat breakfast to kickstart your metabolism each day.",
+    "Plan meals ahead of time to ensure a healthy diet.",
+    "Use herbs and spices to add flavor to your meals without extra calories.",
+    "Avoid excessive caffeine intake.",
+    "Choose low-fat or non-fat dairy products.",
+    "Practice mindful eating by paying attention to your hunger cues.",
+    "Include a variety of colors in your diet for a range of nutrients.",
+    "Limit your consumption of processed foods.",
+    "Eat more plant-based meals for added health benefits.",
+    "Drink herbal teas for relaxation and hydration.",
+    "Keep a food journal to track your eating habits.",
+    "Practice positive affirmations to boost mental well-being.",
+    "Avoid skipping meals to maintain stable energy levels.",
+    "Engage in activities that challenge your brain, like puzzles or reading.",
+    "Incorporate relaxation exercises into your routine.",
+    "Use a standing desk if you work at a computer for long periods.",
+    "Include probiotics in your diet to support gut health.",
+    "Avoid excessive screen time before bed.",
+    "Opt for healthy snacks like fruits, nuts, or yogurt.",
+    "Practice gratitude to improve your mood and outlook.",
+    "Spend time in nature to boost mental and physical health.",
+    "Take time for hobbies and activities you enjoy.",
+    "Avoid multitasking during meals to focus on your food.",
+    "Keep track of your health goals and progress.",
+    "Use a water filter to ensure clean drinking water.",
+    "Avoid excessive use of artificial sweeteners.",
+    "Choose lean cuts of meat and remove visible fat.",
+    "Try to reduce your intake of trans fats.",
+    "Incorporate flexibility exercises like stretching or yoga.",
+    "Use healthy cooking methods like baking or grilling.",
+    "Avoid eating out frequently to control ingredients and portion sizes.",
+    "Seek support from friends or family to stay motivated.",
+    "Learn to manage your time effectively to reduce stress.",
+    "Limit your intake of high-calorie condiments and sauces.",
+    "Practice deep breathing exercises to relax and reduce anxiety.",
+    "Choose whole fruits over fruit juices for more fiber.",
+    "Include nuts and seeds in your diet for healthy fats and protein.",
+    "Avoid eating mindlessly while watching TV or working.",
+    "Set realistic health and fitness goals.",
+    "Include a source of lean protein in every meal.",
+    "Practice mindful spending to reduce financial stress.",
+    "Seek professional advice for any health concerns.",
+    "Avoid eating in response to emotional stress.",
+    "Take regular breaks to stretch and move if you work at a desk.",
+    "Opt for healthier cooking oils like olive oil.",
+    "Find a workout buddy to stay motivated and accountable.",
+    "Prioritize self-care and take time for yourself.",
+    "Use smaller plates to help control portion sizes.",
+    "Avoid eating large meals before bedtime.",
+    "Stay informed about healthy eating and lifestyle practices.",
+    "Experiment with new, healthy recipes to keep meals interesting.",
+    "Practice relaxation techniques like progressive muscle relaxation.",
+    "Reduce exposure to environmental toxins where possible.",
+    "Stay connected with friends and family to maintain emotional support.",
+    "Include a variety of proteins in your diet, such as fish, poultry, and legumes.",
+    "Use less salt in cooking and opt for herbs and spices for flavor.",
+    "Maintain a positive mindset to improve overall well-being.",
+    "Limit your intake of fast food and convenience foods.",
+    "Engage in activities that promote social interaction and connection.",
+    "Make sure to get adequate sun exposure for vitamin D.",
+    "Choose low-sugar options when possible.",
+    "Prioritize mental health by engaging in therapy or counseling if needed.",
+    "Find ways to manage your workload to reduce stress.",
+    "Take time to relax and unwind each day.",
+    "Choose high-fiber foods to support digestive health.",
+    "Avoid using food as a reward or comfort.",
+    "Incorporate strength training exercises to build muscle.",
+    "Seek out healthy alternatives to your favorite indulgent foods.",
+    "Maintain a healthy weight for your body type.",
+    "Practice safe food handling and preparation to avoid foodborne illnesses.",
+    "Set aside time for physical activity that you enjoy.",
+    "Keep a positive attitude towards your health and fitness journey.",
+    "Take care of your teeth and gums with regular brushing and flossing.",
+    "Celebrate your health achievements and milestones."
+        ];
+    
+        let currentIndex = 0;
+        let charIndex = 0;
+    
+        function typeTip() {
+            const tip = tips[currentIndex];
+            const currentTipElement = document.getElementById('current-tip');
+    
+            if (charIndex < tip.length) {
+                currentTipElement.textContent += tip.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeTip, 100);
+            } else {
+                setTimeout(showNextTip, 8000);
+            }
+        }
+    
+        function showNextTip() {
+            currentIndex = (currentIndex + 1) % tips.length;
+            charIndex = 0;
+            document.getElementById('current-tip').textContent = '';
+            typeTip();
+        }
+    
+        typeTip();
+    
+        function calculateHealth() {
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const activityLevel = document.getElementById('activity_level').value;
+    
+            if (height <= 0 || weight <= 0 || age <= 0) {
+                alert("Height, weight, and age must be greater than 0.");
+                return;
+            }
+    
+            const bmi = weight / ((height / 100) ** 2);
+            let bmr;
+            if (gender === 'male') {
+                bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+            } else {
+                bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+            }
+    
+            const activityMultipliers = {
+                'little': 1.2,
+                'light': 1.375,
+                'moderate': 1.55,
+                'active': 1.725,
+                'extra': 1.9
+            };
+            const calorieDemand = bmr * activityMultipliers[activityLevel];
+    
+            let healthStatus;
+            if (bmi < 18.5) {
+                healthStatus = "Underweight";
+            } else if (bmi < 24.9) {
+                healthStatus = "Normal weight";
+            } else if (bmi < 29.9) {
+                healthStatus = "Overweight";
+            } else {
+                healthStatus = "Obesity";
+            }
+    
+            localStorage.setItem('bmi', bmi.toFixed(2));
+            localStorage.setItem('bmr', bmr.toFixed(2));
+            localStorage.setItem('calorieDemand', calorieDemand.toFixed(2));
+            localStorage.setItem('healthStatus', healthStatus);
+    
+            window.location.href = 'result.html';
+        }
+    </script>
+</body>
+</html>
+
+
+
