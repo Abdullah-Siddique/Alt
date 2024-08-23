@@ -5,23 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Checkup</title>
     <style>
+        
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
+            background-image: url('https://cdn.leonardo.ai/users/12adf5be-8e70-4be7-82b2-f6a279f24f70/generations/1a4da6ba-e71f-44a6-aabe-578274ab96f6/Default_white_background_2.jpg');
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
-        h1, p {
-            color: #333;
+        h1, h2 {
+            color: #0326ec;
             text-align: center;
         }
         footer {
             text-align: center;
             color: #666;
             background-color: #f1f1f1;
+            
             padding: 10px 0;
             margin-top: auto;
             width: 100%;
@@ -74,7 +77,7 @@
         #tips {
             text-align: center;
             font-size: 2.5em;  
-            color: #444;
+            color: #9205b6;
             margin: 60px 0 20px 0;  
             height: 60px; 
         }
@@ -95,19 +98,19 @@
 <body>
     <div>
         <h1>Health Checkup</h1>
-        <p>Please enter your personal information to calculate your BMI, BMR, and Calorie Demand.</p>
+        <h2>Please enter your personal information to calculate your BMI, BMR, and Calorie Demand.</h2>
         <form id="healthForm">
-            <p>Height (cm): <input type="number" id="height" required></p>
-            <p>Weight (kg): <input type="number" id="weight" required></p>
-            <p>Age: <input type="number" id="age" required></p>
-            <p>Gender: 
+            <p><strong> Height (cm): </strong><input type="number" id="height" required></p>
+            <p><strong> Weight (kg): </strong><input type="number" id="weight" required></p>
+            <p><strong>Age: </strong><input type="number" id="age" required></p>
+            <p><strong>Gender: </strong>
                 <select id="gender" required>
                     <option value="" disabled selected><strong>---------</strong></option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                 </select>
             </p>
-            <p>Activity Level: 
+            <p><strong>Activity Level: </strong>
                 <select id="activity_level" required>
                     <option value="little">Minimal or no exercise</option>
                     <option value="light">Occasional exercise (Light exercise 2-3 days/week)</option>
