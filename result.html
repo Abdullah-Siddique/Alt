@@ -6,6 +6,9 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
+            background-image: url('https://cdn.leonardo.ai/users/12adf5be-8e70-4be7-82b2-f6a279f24f70/generations/46d59310-8310-4ef0-bac8-8107d6b85f86/Default_Black_and_brown_background_2.jpg');
+            background-size: cover;
+            background-position: center;
             margin: 0;
             padding: 0;
             display: flex;
@@ -13,45 +16,53 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            color: #333;
         }
         h1 {
-            color: #333;
-            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 25px;
         }
-        div {
+        div.result-box {
             background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
+            background-image: url('https://i.ibb.co/BryYmTY/Background.png') ;
+            padding: 70px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 90%;
             text-align: center;
         }
         p {
-            font-size: 18px;
-            margin: 10px 0;
+            font-size: 1.4em;
+            margin: 20px 0;
         }
         p strong {
             color: #5cb85c;
+            font-weight: bold;
         }
         .visit-again {
-            font-size: 24px;
-            color: #666;
-            margin-top: 20px;
+            font-size: 1.8em;
+            color: #fff;
+            background-color: #6a1b9a; 
+            padding: 15px 30px;
+            border-radius: 8px;
+            margin-top: 30px;
             animation: typing 3s steps(12) forwards, blink-caret 0.75s step-end infinite;
             white-space: nowrap;
             overflow: hidden;
-            border-right: 3px solid #666;
+            border-right: 4px solid #fff;
+            max-width: 300px; 
+            text-align: center; 
         }
         .button {
             display: inline-block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            font-size: 18px;
+            padding: 18px 35px;
+            margin-top: 30px;
+            font-size: 1.4em;
             color: #fff;
             background-color: #5cb85c;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             text-decoration: none;
         }
@@ -61,17 +72,17 @@
 
         @keyframes typing {
             from { width: 0; }
-            to { width: 12ch; } 
+            to { width: 20ch; } 
         }
 
         @keyframes blink-caret {
             from, to { border-color: transparent; }
-            50% { border-color: #666; }
+            50% { border-color: #fff; }
         }
     </style>
 </head>
 <body>
-    <div>
+    <div class="result-box">
         <h1>Your Health Checkup Result</h1>
         <p>Your BMI: <strong id="bmiValue"></strong></p>
         <p>Your BMR: <strong id="bmrValue"></strong></p>
