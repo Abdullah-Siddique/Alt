@@ -122,7 +122,7 @@
                     <option value="extra">Extra active (Very active & physical job every day)</option>
                 </select>
             </p>
-            <button type="button" onclick="calculateHealth()">Calculate</button>
+            <button type="button" id="calculateBtn" disabled>Calculate</button>
         </form>
         <div id="tips">
             <p id="current-tip"></p>
@@ -134,8 +134,8 @@
         Github: <a href="https://github.com/Abdullah-Siddique">Abdullah Siddique</a></h4>
         <p>© 2024 Health Checkup. All rights reserved.</p>
     </footer>
-    <script>
-        const tips = [
+        <script>
+            const tips = [
         "Drink plenty of water.",
         "Get at least 8 hours of sleep.",
         "Eat more fruits and vegetables.",
@@ -180,57 +180,76 @@
         }
     
         typeTip();
-    
-        function calculateHealth() {
-            const height = parseFloat(document.getElementById('height').value);
-            const weight = parseFloat(document.getElementById('weight').value);
-            const age = parseInt(document.getElementById('age').value);
-            const gender = document.getElementById('gender').value;
-            const activityLevel = document.getElementById('activity_level').value;
-    
-            if (height <= 0 || weight <= 0 || age <= 0) {
-                alert("Height, weight, and age must be greater than 0.");
-                return;
+            const inputs = document.querySelectorAll('#height, #weight, #age, #gender, #activity_level');
+            const calculateBtn = document.getElementById('calculateBtn');
+        
+            
+            function checkFormValidity() {
+                const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
+                calculateBtn.disabled = !allFilled;
             }
-    
-            const bmi = weight / ((height / 100) ** 2);
-            let bmr;
-            if (gender === 'male') {
-                bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
-            } else {
-                bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+        
+            
+            inputs.forEach(input => {
+                input.addEventListener('input', checkFormValidity);
+            });
+        
+            
+            calculateBtn.addEventListener('click', calculateHealth);
+        
+            function calculateHealth() {
+                const height = parseFloat(document.getElementById('height').value);
+                const weight = parseFloat(document.getElementById('weight').value);
+                const age = parseInt(document.getElementById('age').value);
+                const gender = document.getElementById('gender').value;
+                const activityLevel = document.getElementById('activity_level').value;
+        
+                if (height <= 0 || weight <= 0 || age <= 0) {
+                    alert("Height, weight, and age must be greater than 0.");
+                    return;
+                }
+        
+                const bmi = weight / ((height / 100) ** 2);
+                let bmr;
+                if (gender === 'male') {
+                    bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+                } else {
+                    bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+                }
+        
+                const activityMultipliers = {
+                    'little': 1.2,
+                    'light': 1.375,
+                    'moderate': 1.55,
+                    'active': 1.725,
+                    'extra': 1.9
+                };
+                const calorieDemand = bmr * activityMultipliers[activityLevel];
+        
+                let healthStatus;
+                if (bmi < 18.5) {
+                    healthStatus = "Underweight";
+                } else if (bmi < 24.9) {
+                    healthStatus = "Normal weight";
+                } else if (bmi < 29.9) {
+                    healthStatus = "Overweight";
+                } else {
+                    healthStatus = "Obesity";
+                }
+        
+                localStorage.setItem('bmi', bmi.toFixed(2));
+                localStorage.setItem('bmr', bmr.toFixed(2));
+                localStorage.setItem('calorieDemand', calorieDemand.toFixed(2));
+                localStorage.setItem('healthStatus', healthStatus);
+        
+                // Redirect to result page
+                window.location.href = 'result.html';
             }
-    
-            const activityMultipliers = {
-                'little': 1.2,
-                'light': 1.375,
-                'moderate': 1.55,
-                'active': 1.725,
-                'extra': 1.9
-            };
-            const calorieDemand = bmr * activityMultipliers[activityLevel];
-    
-            let healthStatus;
-            if (bmi < 18.5) {
-                healthStatus = "Underweight";
-            } else if (bmi < 24.9) {
-                healthStatus = "Normal weight";
-            } else if (bmi < 29.9) {
-                healthStatus = "Overweight";
-            } else {
-                healthStatus = "Obesity";
-            }
-    
-            localStorage.setItem('bmi', bmi.toFixed(2));
-            localStorage.setItem('bmr', bmr.toFixed(2));
-            localStorage.setItem('calorieDemand', calorieDemand.toFixed(2));
-            localStorage.setItem('healthStatus', healthStatus);
-    
-            window.location.href = 'result.html';
-        }
-    </script>
+        </script>
+        
 </body>
 </html>
+
 
 
 
