@@ -152,23 +152,27 @@
 <body>
     <div class="result-box">
         <h1>Your Health Checkup Result</h1>
-        <div class="flower rose" style="top: 50%; left: -60px; transform: translateY(-50%);"></div>
-        <div class="flower flower-2" style="top: 50%; right: -60px; transform: translateY(-50%);"></div>
         <h2>Your BMI: <strong id="bmiValue"></strong></h2>
         <h2>Your BMR: <strong id="bmrValue"></strong></h2>
         <h2>Your Calorie Demand: <strong id="calorieDemandValue"></strong></h2>
         <h2>Health Status: <strong id="healthStatusValue"></strong></h2>
-        <a href="index.html" class="button">Go Back (Test Again)</a>
+        <a href="index.html" class="button" id="goBackBtn">Go Back (Test Again)</a>
         <div class="cure-sign" style="bottom: -30px; right: -30px;">+</div>
         <div class="cure-sign" style="bottom: -30px; left: -30px;">+</div>
     </div>
     <div class="visit-again">Visit Again</div>
     
     <script>
+        
         document.getElementById('bmiValue').textContent = localStorage.getItem('bmi');
         document.getElementById('bmrValue').textContent = localStorage.getItem('bmr');
         document.getElementById('calorieDemandValue').textContent = localStorage.getItem('calorieDemand');
         document.getElementById('healthStatusValue').textContent = localStorage.getItem('healthStatus');
+
+        
+        document.getElementById('goBackBtn').addEventListener('click', function() {
+            localStorage.clear();
+        });
     </script>
 </body>
 </html>
