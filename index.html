@@ -103,9 +103,9 @@
         <h1>Health Checkup</h1>
         <h4>Please enter your personal information to calculate your BMI, BMR, and Calorie Demand.</h4>
         <form id="healthForm">
-            <p><strong> Height (cm): </strong><input type="number" id="height" required></p>
-            <p><strong> Weight (kg): </strong><input type="number" id="weight" required></p>
-            <p><strong>Age: </strong><input type="number" id="age" required></p>
+            <p><strong> Height (cm): </strong><input type="number" id="height" min="1" required></p>
+            <p><strong> Weight (kg): </strong><input type="number" id="weight" min="1" required></p>
+            <p><strong>Age: </strong><input type="number" id="age" min="1" required></p>
             <p><strong>Gender: </strong>
                 <select id="gender" required>
                     <option value="" disabled selected><strong>---------</strong></option>
@@ -137,23 +137,23 @@
     <script>
         const tips = [
         "Drink plenty of water.",
-    "Get at least 8 hours of sleep.",
-    "Eat more fruits and vegetables.",
-    "Exercise regularly.",
-    "Avoid sugary drinks.",
-    "Take breaks from screens.",
-    "Practice deep breathing.",
-    "Maintain good posture.",
-    "Stretch your body daily.",
-    "Limit processed foods.",
-    "Eat balanced meals.",
-    "Practice mindfulness.",
-    "Stay positive and reduce stress.",
-    "Limit alcohol consumption.",
-    "Keep a regular sleep schedule.",
-    "Spend time outdoors.",
-    "Laugh often and enjoy life.",
-    "Avoid overeating.",
+        "Get at least 8 hours of sleep.",
+        "Eat more fruits and vegetables.",
+        "Exercise regularly.",
+        "Avoid sugary drinks.",
+        "Take breaks from screens.",
+        "Practice deep breathing.",
+        "Maintain good posture.",
+        "Stretch your body daily.",
+        "Limit processed foods.",
+        "Eat balanced meals.",
+        "Practice mindfulness.",
+        "Stay positive and reduce stress.",
+        "Limit alcohol consumption.",
+        "Keep a regular sleep schedule.",
+        "Spend time outdoors.",
+        "Laugh often and enjoy life.",
+        "Avoid overeating.",
         ];
     
         let currentIndex = 0;
@@ -231,6 +231,7 @@
     </script>
 </body>
 </html>
+
 
 
 
